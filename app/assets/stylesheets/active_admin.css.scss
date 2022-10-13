@@ -22,8 +22,8 @@
 //
 //   .status_tag { background: #6090DB; }
 // @import "active_admin_flat_skin";
-$skinMainFirstColor: #4b60ac!default;
-$skinMainSecondColor: #4b60ac!default;
+$skinMainFirstColor: #024d71!default;
+$skinMainSecondColor: #f0912d!default;
 $menu-arrow-dark-icon-url: 'active_admin/nested_menu_arrow_dark.gif' !default;
 @import "wigu/active_admin_theme";
 // $panelBorder: #42558C;
@@ -524,7 +524,7 @@ body.index.active_admin {
 // header
 #wrapper #header {
   height: 45px;
-  background-color: #b8494f;
+  background-color: #13377e;
   border-bottom: 1px solid #0d94d5 !important;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;
 }
@@ -548,29 +548,31 @@ body.index.active_admin {
 .headline{
   background-color: #fff;
   display: flex;
-  gap: 50px;
-  margin-left: 30px; 
+  align-items: center;
+  justify-content: center;
+  
 
 }
 .banner-logo{
-  background: url(asset_path('logo.png'));
+  background-image: url(asset_path('logo.png'));
+  background-repeat: no-repeat;
   background-position: center;
-  background-size: cover;
-  width: 128px;
-  height: 70px;
+  background-size: 200px;
+  width: 237px;
+  height: 50px;
   margin-top: 10px; 
   margin-bottom: 5px;
 
 }
-.banner-title{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2em !important;
-  line-height: 1;
-  margin: 0px;
-  font-weight: bold;
-}
+// .banner-title{
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   font-size: 2em !important;
+//   line-height: 1;
+//   margin: 0px;
+//   font-weight: bold;
+// }
 // scope
 
 #wrapper #active_admin_content div.table_tools {
@@ -578,9 +580,9 @@ body.index.active_admin {
 }
 
 
-#wrapper .flashes .flash_notice {
-    background-color: #68bb2f;
-}
+// #wrapper .flashes .flash_notice {
+//     background-color: #68bb2f;
+// }
 // site title
 .site_title a{
   display: none;
@@ -588,5 +590,6 @@ body.index.active_admin {
 }
 
 #active_admin_content span.blank_slate {
-    border: 2px solid #c2c2c2 !important;
+    border: 2px solid #e78a28 !important;
+    color: #3c71d5  !important;
 }

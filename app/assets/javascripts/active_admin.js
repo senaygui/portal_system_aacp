@@ -61,8 +61,7 @@ $(document).ready(function(){
     }
   });
 
-  // $('#header').before("<div class='headline'><div class='banner-logo'></div> <h1 class='banner-title'>Premier College Registrar Portal</h1></div>");
-
+$('#header').before("<div class='headline'><div class='banner-logo'></div> </div>");
 
 
 

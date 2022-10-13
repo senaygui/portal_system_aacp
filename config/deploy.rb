@@ -3,7 +3,7 @@
 lock "~> 3.16.0"
 
 set :application, "portal_system"
-set :repo_url, "https://github.com/senaygui/premier_college.git"
+set :repo_url, "https://github.com/senaygui/ngvc_portal.git"
 # set :ssh_options, { :forward_agent => true, :port => 4321 }
 set :user, "deploy"
 set :passenger_restart_with_touch, true
