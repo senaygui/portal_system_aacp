@@ -107,6 +107,7 @@ GEM
       execjs (~> 2)
     barby (0.6.8)
     bcrypt (3.1.16)
+    bcrypt_pbkdf (1.0.1)
     bindex (0.8.1)
     bootsnap (1.7.5)
       msgpack (~> 1.0)
@@ -175,6 +176,7 @@ GEM
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
       railties (>= 3.2)
+    ed25519 (1.3.0)
     erubi (1.10.0)
     execjs (2.8.1)
     ffi (1.15.3)
@@ -388,6 +390,7 @@ DEPENDENCIES
   activeadmin (~> 2.9)
   activeadmin_addons (~> 1.7, >= 1.7.1)
   barby (~> 0.6.8)
+  bcrypt_pbkdf (~> 1.0.0.alpha1)
   bootsnap (>= 1.1.0)
   bootstrap (~> 4.6)
   byebug
@@ -404,6 +407,7 @@ DEPENDENCIES
   country_select (~> 3.1, >= 3.1.1)
   devise (~> 4.8)
   dotenv-rails (~> 2.7, >= 2.7.6)
+  ed25519 (~> 1.2, >= 1.2.4)
   flatpickr (~> 4.6, >= 4.6.3.1)
   font-awesome-rails (~> 4.7, >= 4.7.0.7)
   image_processing
