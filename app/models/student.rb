@@ -104,7 +104,7 @@ class Student < ApplicationRecord
     if (self.document_verification_status == "approved") && (!self.academic_calendar.present?)
       self.update_columns(academic_calendar_id: AcademicCalendar.where(study_level: self.study_level, admission_type: self.admission_type).order("created_at DESC").first.id)
       self.update_columns(department_id: program.department_id)
-      # self.update_columns(curriculum_version: program.curriculums.where(active_status: "active").last.curriculum_version)
+      self.update_columns(curriculum_version: program.curriculums.where(active_status: "active").last.curriculum_version)
       self.update_columns(payment_version: program.payments.order("created_at DESC").first.version)
       self.update_columns(batch: AcademicCalendar.where(study_level: self.study_level).where(admission_type: self.admission_type).order("created_at DESC").first.calender_year_in_gc)
     end
