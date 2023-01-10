@@ -8,7 +8,7 @@ ActiveAdmin.register Invoice, as: "RegistrationPayment" do
 
     def testmoodle
       if @invoice.payment_transaction.finance_approval_status == "approved"
-        @moodle = MoodleRb.new('18425a712e7668d6339fa671fa05db04', 'https://lms.premiercollege.edu.et/webservice/rest/server.php')
+        @moodle = MoodleRb.new('535760d43662c1b6fad4a870c666a739', 'https://lms.premiercollege.edu.et/webservice/rest/server.php')
         if !(@moodle.users.search(email: "#{@invoice.student.email}").present?)
           student = @moodle.users.create(
               :username => "#{@invoice.student.student_id.downcase}",
