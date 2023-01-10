@@ -9,17 +9,17 @@ ActiveAdmin.register Invoice, as: "RegistrationPayment" do
     def testmoodle
       if @registration_payment.payment_transaction.finance_approval_status == "approved"
         @moodle = MoodleRb.new('535760d43662c1b6fad4a870c666a739', 'https://lms.ngvc.edu.et/webservice/rest/server.php')
-        if !(@moodle.users.search(email: "#{@invoice.student.email}").present?)
+        if !(@moodle.users.search(email: "#{@registration_payment.student.email}").present?)
           student = @moodle.users.create(
-              :username => "#{@invoice.student.student_id.downcase}",
-              :password => "#{@invoice.student.student_password}",
-              :firstname => "#{@invoice.student.first_name}",
-              :lastname => "#{@invoice.student.last_name}",
-              :email => "#{@invoice.student.email}"
+              :username => "#{@registration_payment.student.student_id.downcase}",
+              :password => "#{@registration_payment.student.student_password}",
+              :firstname => "#{@registration_payment.student.first_name}",
+              :lastname => "#{@registration_payment.student.last_name}",
+              :email => "#{@registration_payment.student.email}"
             )
-          lms_student = @moodle.users.search(email: "#{@invoice.student.email}")
+          lms_student = @moodle.users.search(email: "#{@registration_payment.student.email}")
           @user = lms_student[0]["id"]
-          @invoice.semester_registration.course_registrations.each do |c|
+          @registration_payment.semester_registration.course_registrations.each do |c|
             s = @moodle.courses.search("#{c.curriculum.course.course_code}")
             @course = s["courses"].to_a[0]["id"]
             @moodle.enrolments.create(
