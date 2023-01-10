@@ -7,7 +7,7 @@ ActiveAdmin.register Invoice, as: "RegistrationPayment" do
     after_action :testmoodle, only: [:update]
 
     def testmoodle
-      if @invoice.payment_transactions.last.finance_approval_status == "approved"
+      if @registration_payment.payment_transaction.finance_approval_status == "approved"
         @moodle = MoodleRb.new('535760d43662c1b6fad4a870c666a739', 'https://lms.ngvc.edu.et/webservice/rest/server.php')
         if !(@moodle.users.search(email: "#{@invoice.student.email}").present?)
           student = @moodle.users.create(
