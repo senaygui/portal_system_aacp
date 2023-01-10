@@ -3,36 +3,36 @@ ActiveAdmin.register Invoice, as: "RegistrationPayment" do
   actions :all, :except => [:new]
   config.clear_action_items!
   permit_params :student_full_name,:student_id_number,:student_id, :department_id, :program_id, :academic_calendar_id,:semester_registration_id,:invoice_number,:total_price,:registration_fee,:late_registration_fee,:invoice_status,:last_updated_by,:created_by,:due_date,:semester, :year,payment_transaction_attributes: [:id,:invoice_id,:payment_method_id,:account_holder_fullname,:phone_number,:account_number,:transaction_reference,:finance_approval_status,:last_updated_by,:created_by, :receipt_image], inovice_item_ids: []
-  # controller do
-  #   after_action :testmoodle, only: [:update]
+  controller do
+    after_action :testmoodle, only: [:update]
 
-  #   def testmoodle
-  #     if @invoice.payment_transaction.finance_approval_status == "approved"
-  #       @moodle = MoodleRb.new('18425a712e7668d6339fa671fa05db04', 'https://lms.premiercollege.edu.et/webservice/rest/server.php')
-  #       if !(@moodle.users.search(email: "#{@invoice.student.email}").present?)
-  #         student = @moodle.users.create(
-  #             :username => "#{@invoice.student.student_id.downcase}",
-  #             :password => "#{@invoice.student.student_password}",
-  #             :firstname => "#{@invoice.student.first_name}",
-  #             :lastname => "#{@invoice.student.last_name}",
-  #             :email => "#{@invoice.student.email}"
-  #           )
-  #         lms_student = @moodle.users.search(email: "#{@invoice.student.email}")
-  #         @user = lms_student[0]["id"]
-  #         @invoice.semester_registration.course_registrations.each do |c|
-  #           s = @moodle.courses.search("#{c.curriculum.course.course_code}")
-  #           @course = s["courses"].to_a[0]["id"]
-  #           @moodle.enrolments.create(
-  #             :user_id => "#{@user}",
-  #             :course_id => "#{@course}",
-  #             # :time_start => 1646312400,
-  #             # :time_end => 1646398800
-  #           )
-  #         end
-  #       end
-  #     end
-  #   end
-  # end
+    def testmoodle
+      if @invoice.payment_transaction.finance_approval_status == "approved"
+        @moodle = MoodleRb.new('18425a712e7668d6339fa671fa05db04', 'https://lms.premiercollege.edu.et/webservice/rest/server.php')
+        if !(@moodle.users.search(email: "#{@invoice.student.email}").present?)
+          student = @moodle.users.create(
+              :username => "#{@invoice.student.student_id.downcase}",
+              :password => "#{@invoice.student.student_password}",
+              :firstname => "#{@invoice.student.first_name}",
+              :lastname => "#{@invoice.student.last_name}",
+              :email => "#{@invoice.student.email}"
+            )
+          lms_student = @moodle.users.search(email: "#{@invoice.student.email}")
+          @user = lms_student[0]["id"]
+          @invoice.semester_registration.course_registrations.each do |c|
+            s = @moodle.courses.search("#{c.curriculum.course.course_code}")
+            @course = s["courses"].to_a[0]["id"]
+            @moodle.enrolments.create(
+              :user_id => "#{@user}",
+              :course_id => "#{@course}",
+              # :time_start => 1646312400,
+              # :time_end => 1646398800
+            )
+          end
+        end
+      end
+    end
+  end
 
   index do
     selectable_column
