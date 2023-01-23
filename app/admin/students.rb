@@ -33,7 +33,7 @@ menu parent: "Student managment"
       "#{n.first_name.upcase} #{n.middle_name.upcase} #{n.last_name.upcase}"
     end
     column "Department", sortable: true do |d|
-      link_to d.program.department.department_name, [:admin, d.program.department]
+      link_to d.program.department.department_name, [:admin, d.program.department] if d.program.department.present?
     end
     column "Program", sortable: true do |d|
       link_to d.program.program_name, [:admin, d.program]
@@ -341,7 +341,8 @@ menu parent: "Student managment"
                   end
                 elsif student.highschool_transcript.previewable?
                   div class: "preview-card text-center" do
-                    span link_to image_tag(student.highschool_transcript.preview(resize: '200x200')), student.highschool_transcript
+                    span link_to "view document", student.highschool_transcript.service_url
+                    # span link_to image_tag(student.highschool_transcript.preview(resize: '200x200')), student.highschool_transcript
                   end
                 end
               else
@@ -358,7 +359,8 @@ menu parent: "Student managment"
                   end
                 elsif student.diploma_certificate.previewable?
                   div class: "preview-card text-center" do
-                    span link_to image_tag(student.diploma_certificate.preview(resize: '200x200')), student.diploma_certificate
+                    span link_to "view document", student.diploma_certificate.service_url
+                    # span link_to image_tag(student.diploma_certificate.preview(resize: '200x200')), student.diploma_certificate
                   end
                 end
               else
@@ -377,7 +379,8 @@ menu parent: "Student managment"
                   end
                 elsif student.grade_10_matric.previewable?
                   div class: "preview-card text-center" do
-                    span link_to image_tag(student.grade_10_matric.preview(resize: '200x200')), student.grade_10_matric
+                    span link_to "view document", student.grade_10_matric.service_url
+                    # span link_to image_tag(student.grade_10_matric.preview(resize: '200x200')), student.grade_10_matric
                   end
                 end
               else
@@ -394,7 +397,8 @@ menu parent: "Student managment"
                   end
                 elsif student.coc.previewable?
                   div class: "preview-card text-center" do
-                    span link_to image_tag(student.coc.preview(resize: '200x200')), student.coc
+                    span link_to "view document", student.coc.service_url
+                    # span link_to image_tag(student.coc.preview(resize: '200x200')), student.coc
                   end
                 end
               else
@@ -413,7 +417,8 @@ menu parent: "Student managment"
                   end
                 elsif student.grade_12_matric.previewable?
                   div class: "preview-card text-center" do
-                    span link_to image_tag(student.grade_12_matric.preview(resize: '200x200')), student.grade_12_matric
+                    span link_to "view document", student.grade_12_matric.service_url
+                    # span link_to image_tag(student.grade_12_matric.preview(resize: '200x200')), student.grade_12_matric
                   end
                 end
               else
@@ -430,7 +435,8 @@ menu parent: "Student managment"
                   end
                 elsif student.undergraduate_transcript.previewable?
                   div class: "preview-card text-center" do
-                    span link_to image_tag(student.undergraduate_transcript.preview(resize: '200x200')), student.undergraduate_transcript
+                    span link_to "view document", student.undergraduate_transcript.service_url
+                    # span link_to image_tag(student.undergraduate_transcript.preview(resize: '200x200')), student.undergraduate_transcript
                   end
                 end
               else
@@ -449,7 +455,8 @@ menu parent: "Student managment"
                   end
                 elsif student.degree_certificate.previewable?
                   div class: "preview-card text-center" do
-                    span link_to image_tag(student.degree_certificate.preview(resize: '200x200')), student.degree_certificate
+                    span link_to "view document", student.degree_certificate.service_url
+                    # span link_to image_tag(student.degree_certificate.preview(resize: '200x200')), student.degree_certificate
                   end
                 end
 
