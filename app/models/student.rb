@@ -78,7 +78,7 @@ class Student < ApplicationRecord
   def password_complexity
     if password.present?
        if !password.match(/^(?=.*[a-z])(?=.*[A-Z])/) 
-         errors.add :password, "must be between 5 to 20 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character"
+         errors.add :password, "must be between 8 to 20 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character"
        end
     end
   end
