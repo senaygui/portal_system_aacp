@@ -11,6 +11,9 @@
         <li class="nav-item"> 
           <strong> <%= link_to "Home", requirements_path, class: "nav-link"%>  </strong>
         </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <strong><%= link_to "Sign In", new_student_session_path, class: "nav-link"%></strong>
+        </li>
         <li class="nav-item d-none d-sm-inline-block"> 
           <%if current_page?(new_student_registration_path)%>
             <strong><%= link_to "Sign in", new_student_session_path, class: "nav-link"%> </strong> 

@@ -341,11 +341,12 @@ menu parent: "Student managment"
                   end
                 elsif student.highschool_transcript.previewable?
                   div class: "preview-card text-center" do
-                    span link_to "view document", student.highschool_transcript.service_url
+                    span link_to "view document", rails_blob_path(student.highschool_transcript, disposition: 'preview')
                     # span link_to image_tag(student.highschool_transcript.preview(resize: '200x200')), student.highschool_transcript
                   end
                 else
-                    span link_to "view document", student.highschool_transcript.service_url
+                  # span link_to "view document", student.highschool_transcript.service_url
+                  span link_to "view document", rails_blob_path(student.highschool_transcript, disposition: 'preview')
                 end
               else
                 h3 class: "text-center no-recent-data" do
@@ -361,11 +362,11 @@ menu parent: "Student managment"
                   end
                 elsif student.diploma_certificate.previewable?
                   div class: "preview-card text-center" do
-                    span link_to "view document", student.diploma_certificate.service_url
+                    span link_to "view document", rails_blob_path(student.diploma_certificate, disposition: 'preview')
                     # span link_to image_tag(student.diploma_certificate.preview(resize: '200x200')), student.diploma_certificate
                   end
                 else
-                    span link_to "view document", student.diploma_certificate.service_url
+                    span link_to "view document", rails_blob_path(student.diploma_certificate, disposition: 'preview')
                 end
               else
                 h3 class: "text-center no-recent-data" do
@@ -383,11 +384,11 @@ menu parent: "Student managment"
                   end
                 elsif student.grade_10_matric.previewable?
                   div class: "preview-card text-center" do
-                    span link_to "view document", student.grade_10_matric.service_url
+                    span link_to "view document", rails_blob_path(student.grade_10_matric, disposition: 'preview')
                     # span link_to image_tag(student.grade_10_matric.preview(resize: '200x200')), student.grade_10_matric
                   end
                 else
-                    span link_to "view document", student.grade_10_matric.service_url
+                    span link_to "view document", rails_blob_path(student.grade_10_matric, disposition: 'preview')
                 end
               else
                 h3 class: "text-center no-recent-data" do
@@ -403,11 +404,11 @@ menu parent: "Student managment"
                   end
                 elsif student.coc.previewable?
                   div class: "preview-card text-center" do
-                    span link_to "view document", student.coc.service_url
+                    span link_to "view document", rails_blob_path(student.coc, disposition: 'preview')
                     # span link_to image_tag(student.coc.preview(resize: '200x200')), student.coc
                   end
                 else
-                    span link_to "view document", student.coc.service_url
+                  span link_to "view document", rails_blob_path(student.coc, disposition: 'preview')
                 end
               else
                 h3 class: "text-center no-recent-data" do
@@ -425,11 +426,11 @@ menu parent: "Student managment"
                   end
                 elsif student.grade_12_matric.previewable?
                   div class: "preview-card text-center" do
-                    span link_to "view document", student.grade_12_matric.service_url
+                    span link_to "view document", rails_blob_path(student.grade_12_matric, disposition: 'preview')
                     # span link_to image_tag(student.grade_12_matric.preview(resize: '200x200')), student.grade_12_matric
                   end
                 else
-                    span link_to "view document", student.grade_12_matric.service_url
+                   span link_to "view document", rails_blob_path(student.grade_12_matric, disposition: 'preview')
                 end
               else
                 h3 class: "text-center no-recent-data" do
@@ -445,11 +446,11 @@ menu parent: "Student managment"
                   end
                 elsif student.undergraduate_transcript.previewable?
                   div class: "preview-card text-center" do
-                    span link_to "view document", student.undergraduate_transcript.service_url
+                    span link_to "view document", rails_blob_path(student.undergraduate_transcript, disposition: 'preview')
                     # span link_to image_tag(student.undergraduate_transcript.preview(resize: '200x200')), student.undergraduate_transcript
                   end
                 else
-                    span link_to "view document", student.undergraduate_transcript.service_url
+                  span link_to "view document", rails_blob_path(student.undergraduate_transcript, disposition: 'preview')
                 end
               else
                 h3 class: "text-center no-recent-data" do
@@ -467,11 +468,11 @@ menu parent: "Student managment"
                   end
                 elsif student.degree_certificate.previewable?
                   div class: "preview-card text-center" do
-                    span link_to "view document", student.degree_certificate.service_url
+                    span link_to "view document", rails_blob_path(student.degree_certificate, disposition: 'preview')
                     # span link_to image_tag(student.degree_certificate.preview(resize: '200x200')), student.degree_certificate
                   end
                 else
-                    span link_to "view document", student.degree_certificate.service_url
+                    span link_to "view document", rails_blob_path(student.degree_certificate, disposition: 'preview')
                 end
 
                 div class: "text-center" do 
