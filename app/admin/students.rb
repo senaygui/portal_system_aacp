@@ -344,6 +344,8 @@ menu parent: "Student managment"
                     span link_to "view document", student.highschool_transcript.service_url
                     # span link_to image_tag(student.highschool_transcript.preview(resize: '200x200')), student.highschool_transcript
                   end
+                else
+                    span link_to "view document", student.highschool_transcript.service_url
                 end
               else
                 h3 class: "text-center no-recent-data" do
@@ -362,6 +364,8 @@ menu parent: "Student managment"
                     span link_to "view document", student.diploma_certificate.service_url
                     # span link_to image_tag(student.diploma_certificate.preview(resize: '200x200')), student.diploma_certificate
                   end
+                else
+                    span link_to "view document", student.diploma_certificate.service_url
                 end
               else
                 h3 class: "text-center no-recent-data" do
@@ -382,6 +386,8 @@ menu parent: "Student managment"
                     span link_to "view document", student.grade_10_matric.service_url
                     # span link_to image_tag(student.grade_10_matric.preview(resize: '200x200')), student.grade_10_matric
                   end
+                else
+                    span link_to "view document", student.grade_10_matric.service_url
                 end
               else
                 h3 class: "text-center no-recent-data" do
@@ -400,6 +406,8 @@ menu parent: "Student managment"
                     span link_to "view document", student.coc.service_url
                     # span link_to image_tag(student.coc.preview(resize: '200x200')), student.coc
                   end
+                else
+                    span link_to "view document", student.coc.service_url
                 end
               else
                 h3 class: "text-center no-recent-data" do
@@ -420,6 +428,8 @@ menu parent: "Student managment"
                     span link_to "view document", student.grade_12_matric.service_url
                     # span link_to image_tag(student.grade_12_matric.preview(resize: '200x200')), student.grade_12_matric
                   end
+                else
+                    span link_to "view document", student.grade_12_matric.service_url
                 end
               else
                 h3 class: "text-center no-recent-data" do
@@ -438,6 +448,8 @@ menu parent: "Student managment"
                     span link_to "view document", student.undergraduate_transcript.service_url
                     # span link_to image_tag(student.undergraduate_transcript.preview(resize: '200x200')), student.undergraduate_transcript
                   end
+                else
+                    span link_to "view document", student.undergraduate_transcript.service_url
                 end
               else
                 h3 class: "text-center no-recent-data" do
@@ -458,6 +470,8 @@ menu parent: "Student managment"
                     span link_to "view document", student.degree_certificate.service_url
                     # span link_to image_tag(student.degree_certificate.preview(resize: '200x200')), student.degree_certificate
                   end
+                else
+                    span link_to "view document", student.degree_certificate.service_url
                 end
 
                 div class: "text-center" do 
