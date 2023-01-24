@@ -20,7 +20,7 @@ ActiveAdmin.register Invoice, as: "RegistrationPayment" do
           lms_student = @moodle.users.search(email: "#{@registration_payment.student.email}")
           @user = lms_student[0]["id"]
           @registration_payment.semester_registration.course_registrations.each do |c|
-            s = @moodle.courses.search("#{c.curriculum.course.course_code}")
+            s = @moodle.courses.search("#{c.course.course_code}")
             @course = s["courses"].to_a[0]["id"]
             @moodle.enrolments.create(
               :user_id => "#{@user}",
