@@ -6,7 +6,9 @@ ActiveAdmin.register Payment do
   index do
     selectable_column
     column "Program" do |pr|
-      link_to pr.program.program_name, admin_program_path(pr.program.id)
+      if pr.program.present?
+        link_to pr.program.program_name, admin_program_path(pr.program.id) 
+      end
     end
     column :student_nationality
     number_column :total_fee, as: :currency, unit: "ETB",  format: "%n %u" ,delimiter: ",", precision: 2
