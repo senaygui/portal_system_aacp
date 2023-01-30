@@ -44,7 +44,9 @@ ActiveAdmin.register Invoice, as: "RegistrationPayment" do
       s.student_id_number
     end
     column "Program", sortable: true do |n|
-      n.program.program_name
+      if n.program.present?
+        n.program.program_name
+      end
     end
     column "Admission Type", sortable: true do |n|
       n.semester_registration.admission_type 

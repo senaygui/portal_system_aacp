@@ -22,6 +22,12 @@ menu parent: "Grade"
     @student_grade.generate_grade
     redirect_back(fallback_location: admin_student_grade_path)
   end
+
+  member_action :get_grade_from_lms, method: :put do
+    @student_grade= StudentGrade.find(params[:id])
+    @student_grade.moodle_grade
+    redirect_back(fallback_location: admin_student_grade_path)
+  end
   # action_item :update, only: :show do
   #   link_to 'Generate Grade', generate_grade_admin_student_grade_path(student_grade.id), method: :put, data: { confirm: 'Are you sure?' }        
   # end
