@@ -104,6 +104,15 @@ ActiveAdmin.register SemesterRegistration do
     end
     redirect_to collection_path, notice: "Grade Report Is Generated Successfully"
   end
+
+  batch_action "Approve students semester registrations for", method: :put, confirm: "Are you sure?" do |ids|
+    SemesterRegistration.find(ids).each do |sm|
+      stu = SemesterRegistration.find_by(id: sm)
+      stu.update_columns(registrar_approval_status: "approved")
+      stu.update_columns(last_updated_by: current_admin_user.name.full)
+    end
+    redirect_to collection_path, notice: "students semester registrations Successfully"
+  end
   action_item :update, only: :show do
     link_to 'generate grade report', generate_grade_report_admin_semester_registration_path(semester_registration.id), method: :put, data: { confirm: 'Are you sure?' }        
   end
