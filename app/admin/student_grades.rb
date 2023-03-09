@@ -34,7 +34,7 @@ menu parent: "Grade"
 
   batch_action "Generate Grade for", method: :put, confirm: "Are you sure?" do |ids|
     StudentGrade.find(ids).each do |student_grade|
-      student_grade.get_grade_from_lms
+      student_grade.moodle_grade
     end
     redirect_to collection_path, notice: "Grade Is Generated Successfully"
   end
