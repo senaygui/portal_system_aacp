@@ -469,6 +469,10 @@
       var val = {
           // Specify validation rules
           rules: {
+            'student[student_address_attributes][moblie_number]':{
+              required:true,
+              minlength:10,
+             },
             'student[photo]': {
                   required: true,
                 },
@@ -479,6 +483,7 @@
             required:true,
             minlength:8,
           }
+          
           },
           // Specify validation error messages
           messages: {
@@ -489,11 +494,11 @@
             required:   "Email is required",
             email:    "Please enter a valid e-mail",
           },
-          phone:{
+          'student[student_address_attributes][moblie_number]':{
             required:   "Phone number is requied",
             minlength:  "Please enter 10 digit mobile number",
             maxlength:  "Please enter 10 digit mobile number",
-            digits:   "Only numbers are allowed in this field"
+            digits:   "Only numbers are allowed in this field",
           },
           date:{
             required:   "Date is required",
