@@ -125,6 +125,9 @@
                   </div>
                   <div class="card-body">
                     <% if current_student.degree_certificate.attached? %>
+                      <div class= "preview-card text-center no-recent-data" >
+                          <span> <%=link_to "view document", rails_blob_path(current_student.degree_certificate, disposition: 'preview')%></span>
+                        </div>
                       <%if current_student.degree_certificate.variable?%>
                         <div class= "preview-card text-center no-recent-data" >
                           <span> <%=link_to "view document", rails_blob_path(current_student.degree_certificate, disposition: 'preview')%></span>
