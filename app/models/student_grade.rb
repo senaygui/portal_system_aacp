@@ -49,7 +49,6 @@ class StudentGrade < ApplicationRecord
   	# self[:grade_in_letter] = grade_in_letter
   end
 
-	private
 
   def generate_assessment
     self.course.assessment_plans.each do |plan|
