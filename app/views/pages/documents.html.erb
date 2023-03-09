@@ -127,7 +127,7 @@
                     <% if current_student.degree_certificate.attached? %>
                       <%if current_student.degree_certificate.variable?%>
                         <div class= "preview-card text-center no-recent-data" >
-                          <span> <%=link_to image_tag(current_student.degree_certificate, size: '200x270'), current_student.degree_certificate%></span>
+                          <span> <%=link_to "view document", rails_blob_path(current_student.degree_certificate, disposition: 'preview')%></span>
                         </div>
                       <%elsif current_student.degree_certificate.previewable?%>
                         <div class= "preview-card text-center no-recent-data">
