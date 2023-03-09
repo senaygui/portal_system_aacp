@@ -32,9 +32,15 @@ menu parent: "Grade"
   #   link_to 'Generate Grade', generate_grade_admin_student_grade_path(student_grade.id), method: :put, data: { confirm: 'Are you sure?' }        
   # end
 
-  batch_action "Generate Grade for", method: :put, confirm: "Are you sure?" do |ids|
+  batch_action "get total for", method: :put, confirm: "Are you sure?" do |ids|
     StudentGrade.find(ids).each do |student_grade|
       student_grade.moodle_grade
+    end
+    redirect_to collection_path, notice: "Grade Is Generated Successfully"
+  end
+  batch_action "Generate Grade for", method: :put, confirm: "Are you sure?" do |ids|
+    StudentGrade.find(ids).each do |student_grade|
+      student_grade.generate_grade
     end
     redirect_to collection_path, notice: "Grade Is Generated Successfully"
   end
