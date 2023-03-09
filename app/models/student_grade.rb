@@ -147,7 +147,7 @@ class StudentGrade < ApplicationRecord
     response = https.request(request)
     # puts response.read_body
     results =  JSON.parse(response.read_body)
-    course_code = moodle.courses.search("#{self.course_registration.curriculum.course.course_code}")
+    course_code = moodle.courses.search("#{self.course_registration.course.course_code}")
     course = course_code["courses"][0]["id"]
     
     total_grade = results["grades"].map {|h1| h1['rawgrade'] if h1['courseid']== course}.compact.first
