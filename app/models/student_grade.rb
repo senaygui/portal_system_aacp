@@ -3,7 +3,7 @@ class StudentGrade < ApplicationRecord
   # after_save :update_subtotal
   after_save :generate_grade
   after_save :add_course_registration
-  after_save :update_grade_report
+  # after_save :update_grade_report
   ##validation
 
   ##assocations
@@ -45,6 +45,12 @@ class StudentGrade < ApplicationRecord
       self.update_columns(letter_grade: "I")
       # needs to be empty and after a week changes to f
       self.update_columns(grade_point: 0)
+    end
+    if self.assesment_total.present?
+      grade_in_letter = self.student.program.grade_systems.last.grades.where("min_row_mark <= ?", self.assesment_total).where("max_row_mark >= ?", self.assesment_total).last.letter_grade
+      grade_letter_value = self.student.program.grade_systems.last.grades.where("min_row_mark <= ?", self.assesment_total).where("max_row_mark >= ?", self.assesment_total).last.grade_point * self.course.credit_hour
+      self.update_columns(letter_grade: grade_in_letter)
+      self.update_columns(grade_point: grade_letter_value)
     end
   	# self[:grade_in_letter] = grade_in_letter
   end
