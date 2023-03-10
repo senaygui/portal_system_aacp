@@ -153,6 +153,6 @@ class StudentGrade < ApplicationRecord
     total_grade = results["grades"].map {|h1| h1['rawgrade'] if h1['courseid']== course}.compact.first
     grade_letter = results["grades"].map {|h1| h1['grade'] if h1['courseid']== course}.compact.first
     # self.update_columns(grade_in_letter: grade_letter)
-    self.update_columns(assesment_total: 1)
+    self.update(assesment_total: 1)
   end
 end
