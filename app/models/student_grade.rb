@@ -23,13 +23,13 @@ class StudentGrade < ApplicationRecord
       self.update_columns(course_registration_id: cr)
     end
   end
-	def assesment_total
-    # assessments.collect { |oi| oi.valid? ? (oi.result) : 0 }.sum
-    assessments.sum(:result)
-  end
-  def update_subtotal
-    self.update_columns(assesment_total: self.assessments.sum(:result))
-  end
+	# def assesment_total
+ #    # assessments.collect { |oi| oi.valid? ? (oi.result) : 0 }.sum
+ #    assessments.sum(:result)
+ #  end
+ #  def update_subtotal
+ #    self.update_columns(assesment_total: self.assessments.sum(:result))
+ #  end
   def generate_grade
     if assessments.where(result: nil).empty?
       grade_in_letter = self.student.program.grade_systems.last.grades.where("min_row_mark <= ?", self.assesment_total).where("max_row_mark >= ?", self.assesment_total).last.letter_grade
