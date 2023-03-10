@@ -28,6 +28,8 @@ menu parent: "Grade"
     @student_grade.moodle_grade
     redirect_back(fallback_location: admin_student_grade_path)
   end
+
+  
   # action_item :update, only: :show do
   #   link_to 'Generate Grade', generate_grade_admin_student_grade_path(student_grade.id), method: :put, data: { confirm: 'Are you sure?' }        
   # end
