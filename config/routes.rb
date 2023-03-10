@@ -22,6 +22,10 @@ Rails.application.routes.draw do
   resources :invoices
   resources :payment_methods
   resources :payment_transactions
+  resources :makeup_exams
+  resources :withdrawals
+  resources :add_and_drops
+  resources :grade_changes
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   root to: 'pages#requirement'
