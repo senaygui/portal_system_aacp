@@ -63,7 +63,7 @@ class Student < ApplicationRecord
     # validates :diploma_certificate, attached: true, if: :grade_12_matric?
     # validates :coc, attached: true, if: :grade_12_matric?
 
-    validates :degree_certificate, attached: true, if: :apply_graduate?
+    validates :degree_certificate, attached: true
     # /def apply_graduate?
     #   self.study_level == "graduate" 
     # end
