@@ -95,7 +95,7 @@ menu parent: "Student managment"
   form do |f|
     f.semantic_errors
     f.semantic_errors *f.object.errors.keys
-    if f.object.new_record? || current_admin_user.role == "registrar head"
+    if f.object.new_record? 
       f.inputs "Student basic information" do
         div class: "avatar-upload" do
           div class: "avatar-edit" do
