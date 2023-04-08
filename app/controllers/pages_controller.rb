@@ -10,7 +10,7 @@ class PagesController < ApplicationController
   def documents
     authenticate_student!
   end
-  def digital_iteracy_quiz
+  def digital_literacy_quiz
   end
   def requirement
     

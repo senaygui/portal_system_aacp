@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get 'documents' => 'pages#documents'
   get 'profile' => 'pages#profile'
   get 'grade_report' => 'pages#grade_report'
-  get 'digital-iteracy-quiz' => 'pages#digital_iteracy_quiz'
+  get 'digital_literacy_quiz' => 'pages#digital_literacy_quiz'
   get 'requirements' => 'pages#requirement'
   get 'home' => 'pages#home'
   resources :almunis

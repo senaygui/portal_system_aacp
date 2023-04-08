@@ -95,7 +95,9 @@
     <div class="col-12">
       <h1 class="title-header mt-5 mb-2">Digital Literacy Assesement</h1>
       <p class="text-center header-text mb-5 text-muted">
-        There are certain requirements you have to fulfill in order to be addmitted to premier-Online and start Learning. Make sure that you meet the minimum requirements before starting your application process.
+        There are certain requirements you have to fulfill in order to be addmitted to NGVC-Online and start Learning. Make sure that you meet the minimum requirements before starting your application process.
+        <h3>Public IP Address of user is:</h3>
+        <p id="gfg"></p>
       </p>
     </div>
     <div class="col-12 col-md-4">
@@ -111,7 +113,7 @@
         <div class="card-body">
           <p  class="text-center" style="font-size: 20px;"><strong>Select the appropriate answer for multiple choose questions</strong></p>  
           <p class="text-muted text-center">
-            There are certain requirements you have to fulfill in order to be addmitted to premier-Online and start Learning. Make sure that you meet the minimum requirements before starting your application process.
+            There are certain requirements you have to fulfill in order to be addmitted to NGVC-Online and start Learning. Make sure that you meet the minimum requirements before starting your application process.
           </p>
           <p class="text-muted text-center">
             the minimum requirement to pass is 5 and above
@@ -149,6 +151,14 @@
 </div>
 
 <script type="text/javascript">
+  $.getJSON("https://api.ipify.org?format=json", function(data) {
+         
+        // Setting text of element P with id gfg
+        $("#gfg").html(data.ip);
+    })
+</script>
+<script type="text/javascript">
+  
   (function(){
   // Functions
   function buildQuiz(){
@@ -156,7 +166,7 @@
     const output = [];
 
     // for each question...
-    myQuestions.forEach(
+    myQuestionShuffled.forEach(
       (currentQuestion, questionNumber) => {
 
         // variable to store the list of possible answers
@@ -198,7 +208,7 @@
     let numCorrect = 0;
 
     // for each question...
-    myQuestions.forEach( (currentQuestion, questionNumber) => {
+    myQuestionShuffled.forEach( (currentQuestion, questionNumber) => {
 
       // find selected answer
       const answerContainer = answerContainers[questionNumber];
@@ -224,13 +234,13 @@
     resultsContainer.innerHTML = ``;
 
     if(numCorrect >= 5){
-      resultsContainer.innerHTML = `<p class="mb-2" style="color:green;">${numCorrect} out of ${myQuestions.length}</p>
-      <p style="color:green;">Congratulations you have passed the technical knowledge requirement to enroll to premier online. Please continue to the registration process.</p>
-      <%= link_to "Apply Now", new_student_registration_path, class: "btn btn-primary btn-lg"%>`;
+      resultsContainer.innerHTML = `<p class="mb-2" style="color:green;">${numCorrect} out of ${myQuestionShuffled.length}</p>
+      <p style="color:green;">Congratulations you have passed the technical knowledge requirement to enroll to NGVC online. Please continue to the registration process.</p>
+      <%= link_to "Apply Now", new_student_registration_path, class: "btn btn-primary btn-lg", data: { turbolinks: false }%>`;
     }
     else{
-      resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length} or ${numCorrect}0% <br>
-      <p style="color:red;">Sorry you don't fulfill our minimum requirement for enrolling in premier online program. Please upgrade your technical abilities and try again later.</p>`;
+      resultsContainer.innerHTML = `${numCorrect} out of ${myQuestionShuffled.length} or ${numCorrect}0% <br>
+      <p style="color:red;">Sorry you don't fulfill our minimum requirement for enrolling in NGVC online program. Please upgrade your technical abilities and try again later.</p>`;
     }
     
 
@@ -271,7 +281,7 @@
   const submitButton = document.getElementById('submit');
   const myQuestions = [
     {
-      question: "1. What is a commonly known tool used as a video conferencing tool?",
+      question: "What is a commonly known tool used as a video conferencing tool?",
       answers: {
         A: "zoom",
         B: "Resolve",
@@ -281,7 +291,7 @@
       correctAnswer: "A"
     },
     {
-      question: "2. Do you have a stable internet connection at your place of residence or a travel friendly solution?",
+      question: "Do you have a stable internet connection at your place of residence or a travel friendly solution?",
       answers: {
         A: "Yes",
         B: "No"
@@ -289,7 +299,7 @@
       correctAnswer: "A"
     },
     {
-      question: "3. Are you ok with spending a considerable amount of time infront of a digital device either reading or watching videos?",
+      question: "Are you ok with spending a considerable amount of time infront of a digital device either reading or watching videos?",
       answers: {
         A: "Yes",
         B: "No"
@@ -297,7 +307,7 @@
       correctAnswer: "A"
     },
     {
-      question: "4. Do you have a tendency to be disciplined enough to manage your time and resources for consuming digital contents online?",
+      question: "Do you have a tendency to be disciplined enough to manage your time and resources for consuming digital contents online?",
       answers: {
         A: "Yes",
         B: "No"
@@ -305,7 +315,7 @@
       correctAnswer: "A"
     },
      {
-      question: "5. Your sister travels to another country for an on-site business project. You want to tell her about your new job by sending her an e-mail message from your computer. Which of the following devices will you use to connect your computer to the Internet?",
+      question: "Your sister travels to another country for an on-site business project. You want to tell her about your new job by sending her an e-mail message from your computer. Which of the following devices will you use to connect your computer to the Internet?",
       answers: {
         A: "Sound Card",
         B: "Modem",
@@ -315,7 +325,7 @@
       correctAnswer: "B"
     },
     {
-      question: "6. Nina uses Office Excel 2010 to create a work plan for her team. She wants to print the plan and discuss it with the team members in a meeting. Which of the following menus will Nina use to print the plan?",
+      question: "Nina uses Office Excel 2010 to create a work plan for her team. She wants to print the plan and discuss it with the team members in a meeting. Which of the following menus will Nina use to print the plan?",
       answers: {
         A: "Format",
         B: "File",
@@ -325,7 +335,7 @@
       correctAnswer: "B"
     },
     {
-      question: "7. 'Desktop' is a computer term that refers to?",
+      question: "'Desktop' is a computer term that refers to?",
       answers: {
         A: "The list of all of the contents on a particular computer",
         B: "The initial screen showing icons for folders, files, and applications",
@@ -335,7 +345,7 @@
       correctAnswer: "B"
     },
     {
-      question: "8. When you're connected to the Internet, you are?",
+      question: "When you're connected to the Internet, you are?",
       answers: {
         A: "Out of line",
         B: "Offline",
@@ -345,7 +355,7 @@
       correctAnswer: "D"
     },
     {
-      question: "9. The _____________ shows what files and applications are open?",
+      question: "The _____________ shows what files and applications are open?",
       answers: {
         A: "Start button",
         B: "Document library",
@@ -355,7 +365,7 @@
       correctAnswer: "D"
     },
     {
-      question: "10. You create a presentation by using PowerPoint. Which of the following toolbars will you use to add geometric shapes to the presentation?",
+      question: "You create a presentation by using PowerPoint. Which of the following toolbars will you use to add geometric shapes to the presentation?",
       answers: {
         A: "Reviewing",
         B: "Illustration",
@@ -365,6 +375,7 @@
       correctAnswer: "B"
     }
   ];
+  const myQuestionShuffled = myQuestions.sort(function() { return 0.5 - Math.random() });
 
   // Kick things off
   buildQuiz();

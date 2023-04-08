@@ -360,11 +360,27 @@
 
 
 <script type="text/javascript" >
+  // window.onload = function() {
+  //   if(!window.location.hash) {
+  //       window.location = window.location + '#loaded';
+  //       window.location.reload();
+  //   }
+  // }
+
   $(document).on('turbolinks:load', function(){
-     if(!localStorage.loaded) {
-        localStorage.setItem('loaded', 'yes')
-        window.location.reload();
-      }
+     // var refresh = window.localStorage.getItem('refresh');
+     //  console.log(refresh);
+     //  setTimeout(function() {
+     //  if (refresh===null){
+     //      window.location.reload();
+     //      window.localStorage.setItem('refresh', "1");
+     //  }
+     //  }, 1500); // 1500 milliseconds = 1.5 seconds
+
+     //  setTimeout(function() {
+     //  localStorage.removeItem('refresh')
+     //  }, 1700); // 1700 milliseconds = 1.7 seconds
+     
     $.fn.multiStepForm = function(args) {
         if(args === null || typeof args !== 'object' || $.isArray(args))
           throw  " : Called with Invalid argument";
