@@ -13,18 +13,18 @@ ActiveAdmin.register AdminUser do
   index do
     selectable_column
     
-    column "full name", sortable: true do |n|
+    column "ስም", sortable: true do |n|
       n.name.full 
     end
-    column :email
-    column :role
-    column :current_sign_in_at
-    column :sign_in_count
+    column "ኢሜል", :email
+    column "ሚና", :role
+    column "አሁን የገቡበት",:current_sign_in_at
+    column "የገቡበት በቁጥር", :sign_in_count
     column :created_at
     actions
   end
 
-  filter :first_name
+  # filter :first_name, label: ""
   filter :last_name
   filter :middle_name
   filter :role
@@ -35,35 +35,38 @@ ActiveAdmin.register AdminUser do
 
   scope :recently_added
   scope :total_users
-  scope :admins
+  # scope :admins
   
-  scope :president
-  scope :vice_presidents
-  scope :quality_assurances
-  scope :deans
-  scope :department_heads
-  scope :program_offices
-  scope :library
-  scope :registrars
-  scope :finances
+  # scope "መሰረታዊ ፓርቲ", :president
+
+  # scope "ፋይናንስ ዘርፍ", :vice_presidents
+
+  # scope "አደረጃጀት", :quality_assurances
+  
+  # scope "ፖለቲካ ዘርፍ", :deans
+  # scope "ሰብሳቢ", :department_heads
+  
   
   
 
-  form do |f|
-    f.inputs "Adminstration Account" do
-      f.input :first_name
-      f.input :last_name
-      f.input :middle_name
-      f.input :username
-      f.input :email
+  form title: "User Account" do |f|
+    f.inputs "User Account" do
+      f.input :first_name, label: "ስም"
+      f.input :last_name, label: "አባት ስም"
+      f.input :middle_name, label: "አያት ስም"
+      f.input :username, label: "የተጠቃሚ ስም"
+      f.input :email, label: "ኢሜል"
       if !f.object.new_record?
         f.input :current_password
       end
-      f.input :password
-      f.input :password_confirmation
+      f.input :password, label: "የይለፍ ቃል "
+      f.input :password_confirmation, label: "የይለፍ ቃል ማረጋገጫ"
       
-      f.input :role,  :as => :select, :collection => [["President", "president"], ["Vice President", "vice president"], ["Quality Assurance", "quality assurance"],["Dean","dean"], ["Program Office", "program office"], ["Library Head", "library head"], ["Store/Student Service(Graduating Student)", "store head"],["Admin","admin"],["Registrar Head","registrar head"], ["Distance Registrar","distance registrar"], ["Online Registrar","online registrar"], ["Regular Registrar","regular registrar"], ["Extention Registrar","extention registrar"], ["Finance Head","finance head"], ["Distance Finance","distance finance"], ["Online Finance","online finance"], ["Regular Finance","regular finance"], ["Extention Finance","extention finance"],["Instructor","instructor"],["Admission Officer","admission officer"]], label: "Account Role", :include_blank => false
-      f.input :photo, as: :file
+      f.input :role, label: "ሚና",  :as => :select, :collection => [["Admin","admin"],["መሰረታዊ ፓርቲ","መሰረታዊ ፓርቲ"],["ፋይናንስ ዘርፍ","ፋይናንስ ዘርፍ"],["አደረጃጀት","አደረጃጀት"], ["ፖለቲካ ዘርፍ","ፖለቲካ ዘርፍ"], ["ሰብሳቢ","ሰብሳቢ"]]
+      f.input :cell_id,label: "የህዋስ ስም", as: :search_select, url: admin_cells_path,
+          fields: [:cell_name, :id], display_name: 'cell_name', minimum_input_length: 2,
+          order_by: 'id_asc'
+      f.input :photo, as: :file, label: "ፎቶ"
     end
     f.actions
   end
@@ -74,11 +77,11 @@ ActiveAdmin.register AdminUser do
         row "photo" do |pt|
           span image_tag(pt.photo, size: '150x150', class: "img-corner") if pt.photo.attached?
         end
-        row :first_name
-        row :last_name
-        row :middle_name
-        row :username
-        row :email
+        row "ስም", :first_name
+        row "አባት ስም", :last_name
+        row "አያት ስም", :middle_name
+        row "የተጠቃሚ ስም", :username
+        row "ኢሜል", :email
         row :sign_in_count
         row :current_sign_in_at
         row :last_sign_in_at

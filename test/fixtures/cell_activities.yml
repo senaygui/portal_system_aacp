@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  overview: MyText
+  cell: one
+  category: MyString
+  created_by: MyString
+  last_updated_by: MyString
+
+two:
+  title: MyString
+  overview: MyText
+  cell: two
+  category: MyString
+  created_by: MyString
+  last_updated_by: MyString

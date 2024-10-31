@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_29_021637) do
+ActiveRecord::Schema.define(version: 2024_10_23_155429) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "academic_calendars", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "academic_calendars", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "calender_year", null: false
     t.string "calender_year_in_gc", null: false
     t.string "calender_year_in_ec", null: false
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "academic_statuses", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "academic_statuses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "grade_system_id"
     t.string "status"
     t.decimal "min_value"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["grade_system_id"], name: "index_academic_statuses_on_grade_system_id"
   end
 
-  create_table "active_admin_comments", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "active_admin_comments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "namespace"
     t.text "body"
     t.string "resource_type"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
   end
 
-  create_table "active_storage_attachments", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "active_storage_attachments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.uuid "record_id", null: false
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "active_storage_blobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "activities", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "activities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "academic_calendar_id"
     t.string "activity", null: false
     t.integer "semester", null: false
@@ -95,7 +95,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["academic_calendar_id"], name: "index_activities_on_academic_calendar_id"
   end
 
-  create_table "add_and_drop_courses", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "add_and_drop_courses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "add_and_drop_id"
     t.uuid "course_id"
     t.string "add_or_drop", null: false
@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["course_id"], name: "index_add_and_drop_courses_on_course_id"
   end
 
-  create_table "add_and_drops", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "add_and_drops", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "student_id"
     t.uuid "academic_calendar_id"
     t.uuid "semester_registration_id"
@@ -140,10 +140,11 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["student_id"], name: "index_add_and_drops_on_student_id"
   end
 
-  create_table "admin_users", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "admin_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
+    t.uuid "cell_id"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.integer "sign_in_count", default: 0, null: false
@@ -159,13 +160,25 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.uuid "department_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["cell_id"], name: "index_admin_users_on_cell_id"
     t.index ["department_id"], name: "index_admin_users_on_department_id"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
     t.index ["role"], name: "index_admin_users_on_role"
   end
 
-  create_table "almunis", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "agendas", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "cell_activity_id"
+    t.string "agenda_title", null: false
+    t.text "agenda_description", null: false
+    t.string "created_by"
+    t.string "last_updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cell_activity_id"], name: "index_agendas_on_cell_activity_id"
+  end
+
+  create_table "almunis", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "fullname", null: false
     t.string "sex", null: false
     t.string "phone_number", null: false
@@ -177,7 +190,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "assessment_plans", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "assessment_plans", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "course_id"
     t.string "assessment_title", null: false
     t.decimal "assessment_weight", null: false
@@ -189,7 +202,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["course_id"], name: "index_assessment_plans_on_course_id"
   end
 
-  create_table "assessments", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "assessments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "student_id"
     t.uuid "course_id"
     t.uuid "student_grade_id"
@@ -206,7 +219,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["student_id"], name: "index_assessments_on_student_id"
   end
 
-  create_table "attendances", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "attendances", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "program_id"
     t.uuid "section_id"
     t.uuid "course_id"
@@ -225,7 +238,29 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["section_id"], name: "index_attendances_on_section_id"
   end
 
-  create_table "college_payments", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "cell_activities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "title", null: false
+    t.text "overview", null: false
+    t.uuid "cell_id"
+    t.string "category", null: false
+    t.string "created_by"
+    t.string "last_updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cell_id"], name: "index_cell_activities_on_cell_id"
+  end
+
+  create_table "cells", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "cell_name", null: false
+    t.text "cell_decription"
+    t.datetime "create_date"
+    t.string "created_by"
+    t.string "last_updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "college_payments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "study_level", null: false
     t.string "admission_type", null: false
     t.string "student_nationality"
@@ -256,7 +291,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "colleges", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "colleges", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "college_name", null: false
     t.text "background"
     t.text "mission"
@@ -283,7 +318,28 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "course_assessments", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "committee_members", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "admin_user_id"
+    t.uuid "committee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_user_id"], name: "index_committee_members_on_admin_user_id"
+    t.index ["committee_id"], name: "index_committee_members_on_committee_id"
+  end
+
+  create_table "committees", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "committee_title", null: false
+    t.text "committee_job_description", null: false
+    t.datetime "committee_started_at", null: false
+    t.uuid "admin_user_id"
+    t.string "created_by"
+    t.string "last_updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_user_id"], name: "index_committees_on_admin_user_id"
+  end
+
+  create_table "course_assessments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "curriculums_id"
     t.integer "weight"
     t.string "assessment"
@@ -292,7 +348,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["curriculums_id"], name: "index_course_assessments_on_curriculums_id"
   end
 
-  create_table "course_exemptions", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "course_exemptions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "course_id"
     t.string "letter_grade", null: false
     t.integer "credit_hour", null: false
@@ -326,7 +382,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["section_id"], name: "index_course_instructors_on_section_id"
   end
 
-  create_table "course_modules", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "course_modules", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "module_title", null: false
     t.uuid "department_id"
     t.string "module_code", null: false
@@ -339,7 +395,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["department_id"], name: "index_course_modules_on_department_id"
   end
 
-  create_table "course_registrations", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "course_registrations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "student_id"
     t.uuid "program_id"
     t.uuid "semester_registration_id"
@@ -365,7 +421,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["student_id"], name: "index_course_registrations_on_student_id"
   end
 
-  create_table "course_sections", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "course_sections", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "section_short_name", null: false
     t.string "section_full_name", null: false
     t.uuid "course_id"
@@ -379,7 +435,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["course_id"], name: "index_course_sections_on_course_id"
   end
 
-  create_table "courses", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "courses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "course_module_id"
     t.uuid "curriculum_id"
     t.uuid "program_id"
@@ -403,7 +459,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["program_id"], name: "index_courses_on_program_id"
   end
 
-  create_table "curriculums", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "curriculums", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "program_id"
     t.string "curriculum_title", null: false
     t.string "curriculum_version", null: false
@@ -420,7 +476,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["program_id"], name: "index_curriculums_on_program_id"
   end
 
-  create_table "departments", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "departments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "faculty_id"
     t.string "department_name"
     t.text "overview"
@@ -442,7 +498,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["faculty_id"], name: "index_departments_on_faculty_id"
   end
 
-  create_table "emergency_contacts", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "emergency_contacts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "student_id"
     t.string "full_name", null: false
     t.string "relationship"
@@ -460,7 +516,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["student_id"], name: "index_emergency_contacts_on_student_id"
   end
 
-  create_table "faculties", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "faculties", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "faculty_name", null: false
     t.text "overview"
     t.text "background"
@@ -479,7 +535,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "grade_changes", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "grade_changes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "academic_calendar_id"
     t.uuid "program_id"
     t.uuid "department_id"
@@ -526,7 +582,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["student_id"], name: "index_grade_changes_on_student_id"
   end
 
-  create_table "grade_reports", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "grade_reports", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "semester_registration_id"
     t.uuid "student_id"
     t.uuid "academic_calendar_id"
@@ -563,7 +619,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["student_id"], name: "index_grade_reports_on_student_id"
   end
 
-  create_table "grade_rules", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "grade_rules", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "admission_type"
     t.string "study_level"
     t.integer "min_cgpa_value_to_pass"
@@ -571,7 +627,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "grade_systems", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "grade_systems", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "program_id"
     t.uuid "curriculum_id"
     t.decimal "min_cgpa_value_to_pass"
@@ -585,7 +641,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["program_id"], name: "index_grade_systems_on_program_id"
   end
 
-  create_table "grades", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "grades", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "grade_system_id"
     t.string "letter_grade", null: false
     t.decimal "grade_point", null: false
@@ -598,7 +654,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["grade_system_id"], name: "index_grades_on_grade_system_id"
   end
 
-  create_table "invoice_items", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "invoice_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "itemable_type"
     t.uuid "itemable_id"
     t.uuid "course_registration_id"
@@ -614,7 +670,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["itemable_type", "itemable_id"], name: "index_invoice_items_on_itemable_type_and_itemable_id"
   end
 
-  create_table "invoices", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "invoices", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "semester_registration_id"
     t.uuid "student_id"
     t.uuid "academic_calendar_id"
@@ -641,7 +697,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["student_id"], name: "index_invoices_on_student_id"
   end
 
-  create_table "makeup_exams", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "makeup_exams", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "academic_calendar_id"
     t.uuid "program_id"
     t.uuid "department_id"
@@ -690,7 +746,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["student_id"], name: "index_makeup_exams_on_student_id"
   end
 
-  create_table "other_payments", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "other_payments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "student_id"
     t.uuid "academic_calendar_id"
     t.uuid "semester_registration_id"
@@ -721,7 +777,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["student_id"], name: "index_other_payments_on_student_id"
   end
 
-  create_table "payment_methods", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "payment_methods", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "bank_name", null: false
     t.string "account_full_name", null: false
     t.string "account_number"
@@ -734,7 +790,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "payment_transactions", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "payment_transactions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "invoiceable_type"
     t.uuid "invoiceable_id"
     t.uuid "payment_method_id"
@@ -750,7 +806,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["payment_method_id"], name: "index_payment_transactions_on_payment_method_id"
   end
 
-  create_table "payments", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "payments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "program_id"
     t.string "version"
     t.string "student_nationality"
@@ -783,7 +839,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["program_id"], name: "index_payments_on_program_id"
   end
 
-  create_table "prerequisites", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "prerequisites", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "course_id"
     t.uuid "prerequisite_id"
     t.string "created_by"
@@ -794,7 +850,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["prerequisite_id"], name: "index_prerequisites_on_prerequisite_id"
   end
 
-  create_table "programs", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "programs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "department_id"
     t.string "program_name", null: false
     t.string "program_code", null: false
@@ -814,7 +870,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["department_id"], name: "index_programs_on_department_id"
   end
 
-  create_table "recurring_payments", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "recurring_payments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "semester_registration_id"
     t.uuid "student_id"
     t.uuid "academic_calendar_id"
@@ -844,7 +900,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["student_id"], name: "index_recurring_payments_on_student_id"
   end
 
-  create_table "school_or_university_informations", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "school_or_university_informations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "student_id"
     t.string "college_or_university"
     t.string "phone_number"
@@ -866,7 +922,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["student_id"], name: "index_school_or_university_informations_on_student_id"
   end
 
-  create_table "sections", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "sections", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "program_id"
     t.string "section_short_name", null: false
     t.string "section_full_name", null: false
@@ -880,7 +936,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["program_id"], name: "index_sections_on_program_id"
   end
 
-  create_table "semester_registrations", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "semester_registrations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "student_id"
     t.uuid "program_id"
     t.uuid "section_id"
@@ -913,7 +969,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["student_id"], name: "index_semester_registrations_on_student_id"
   end
 
-  create_table "semesters", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "semesters", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "academic_calendar_id"
     t.integer "semester", null: false
     t.datetime "starting_date", null: false
@@ -923,7 +979,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["academic_calendar_id"], name: "index_semesters_on_academic_calendar_id"
   end
 
-  create_table "sessions", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "sessions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "attendance_id"
     t.uuid "academic_calendar_id"
     t.uuid "course_id"
@@ -941,7 +997,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["course_id"], name: "index_sessions_on_course_id"
   end
 
-  create_table "student_addresses", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "student_addresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "student_id"
     t.string "country", null: false
     t.string "city"
@@ -961,7 +1017,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["student_id"], name: "index_student_addresses_on_student_id"
   end
 
-  create_table "student_attendances", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "student_attendances", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "session_id"
     t.uuid "student_id"
     t.uuid "course_registration_id"
@@ -978,7 +1034,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["student_id"], name: "index_student_attendances_on_student_id"
   end
 
-  create_table "student_courses", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "student_courses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "student_id"
     t.uuid "course_id"
     t.string "course_title", null: false
@@ -997,7 +1053,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["student_id"], name: "index_student_courses_on_student_id"
   end
 
-  create_table "student_grades", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "student_grades", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "course_registration_id"
     t.uuid "student_id"
     t.uuid "course_id"
@@ -1020,7 +1076,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["student_id"], name: "index_student_grades_on_student_id"
   end
 
-  create_table "students", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -1076,7 +1132,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["reset_password_token"], name: "index_students_on_reset_password_token", unique: true
   end
 
-  create_table "transfers", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "transfers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "student_id"
     t.uuid "program_id"
     t.uuid "section_id"
@@ -1115,7 +1171,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
     t.index ["student_id"], name: "index_transfers_on_student_id"
   end
 
-  create_table "withdrawals", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "withdrawals", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "program_id"
     t.uuid "department_id"
     t.uuid "student_id"
@@ -1158,5 +1214,10 @@ ActiveRecord::Schema.define(version: 2022_07_29_021637) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "agendas", "cell_activities"
+  add_foreign_key "cell_activities", "cells"
+  add_foreign_key "committee_members", "admin_users"
+  add_foreign_key "committee_members", "committees"
+  add_foreign_key "committees", "admin_users"
   add_foreign_key "departments", "faculties"
 end

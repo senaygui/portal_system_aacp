@@ -9,6 +9,7 @@ class DeviseCreateAdminUsers < ActiveRecord::Migration[5.2]
 
       ## Recoverable
       t.string   :reset_password_token
+      t.belongs_to :cell, index: true, type: :uuid, optional: true
       t.datetime :reset_password_sent_at
 
       ## Rememberable

@@ -4,9 +4,9 @@ ActiveAdmin.register_page "Dashboard" do
   content title: proc { I18n.t("active_admin.dashboard") } do
     div class: "blank_slate_container", id: "dashboard_default_message" do
       span class: "blank_slate" do
-        div image_tag("logo.png", width: "300")
-        span "Welcome To NGVC College"
-        small "This is New Global Vision College registrar, and school management portal system."
+        div image_tag("logo-ap.png", width: "300")
+        span "Welcome To Addis Ababa City Construction Permit and Control Authority Prosperity Party"
+        small "This isAddis Ababa City Construction Permit and Control Authority Prosperity party portal system."
       end
     end
 

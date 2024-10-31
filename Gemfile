@@ -58,7 +58,7 @@ gem "rqrcode", "~> 2.1"
 
 gem "chunky_png", "~> 1.4"
 gem 'moodle_rb', '~> 2.1'
-
+gem 'active_storage-send_zip'
 gem "barby", "~> 0.6.8"
 gem 'active_admin_scoped_collection_actions'
 gem 'active_admin_sidebar'

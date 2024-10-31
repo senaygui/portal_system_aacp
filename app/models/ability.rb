@@ -12,52 +12,55 @@ class Ability
     when "admission officer"
         can :manage, Student, document_verification_status: "approved"
     when "admin"
+        can :manage, Cell
+        can :manage, Committee
+        can :manage, CellActivity
         # can :manage, ActiveAdmin::Page, name: "Calendar", namespace_name: "admin"
-        can :manage, Transfer
-        can :manage, RecurringPayment
-        can :manage, GradeSystem
-        can :manage, GradeChange    
-        can :manage, MakeupExam    
-        can :manage, AssessmentPlan
-        can :manage, CourseRegistration
-        can :manage, Attendance
-        can :manage, Session
-        can :manage, PaymentTransaction
-        can :manage, StudentAddress
-        can :manage, EmergencyContact
-        can :manage, Payment
-        # can :manage, CourseSection
-        can :manage, StudentGrade
-        # can :update, StudentGrade
-        # can :destroy, StudentGrade
-        # cannot :create, StudentGrade
-        can :manage, GradeReport
-        # can :manage, GradeRule
-        can :manage, Grade
+        # can :manage, Transfer
+        # can :manage, RecurringPayment
+        # can :manage, GradeSystem
+        # can :manage, GradeChange    
+        # can :manage, MakeupExam    
+        # can :manage, AssessmentPlan
+        # can :manage, CourseRegistration
+        # can :manage, Attendance
+        # can :manage, Session
+        # can :manage, PaymentTransaction
+        # can :manage, StudentAddress
+        # can :manage, EmergencyContact
+        # can :manage, Payment
+        # # can :manage, CourseSection
+        # can :manage, StudentGrade
+        # # can :update, StudentGrade
+        # # can :destroy, StudentGrade
+        # # cannot :create, StudentGrade
+        # can :manage, GradeReport
+        # # can :manage, GradeRule
+        # can :manage, Grade
         can :manage, AdminUser
         can :manage, ActiveAdmin::Page, name: "Dashboard", namespace_name: "admin"
-        can :manage, Program
-        can :manage, College
-        can :manage, Faculty
-        can :manage, Curriculum
-        #TODO: after one college created disable new action   
-        cannot :destroy, College, id: 1
+        # can :manage, Program
+        # can :manage, College
+        # can :manage, Faculty
+        # can :manage, Curriculum
+        # #TODO: after one college created disable new action   
+        # cannot :destroy, College, id: 1
 
-        can :manage, Department
-        can :manage, CourseModule
-        can :manage, Course
-        can :manage, Student
-        can :manage, PaymentMethod
-        can :manage, AcademicCalendar
-        can :manage, CollegePayment
-        can :manage, SemesterRegistration
-        can :manage, Invoice
-        can :manage, Section
-        can :manage, Almuni
-        can :manage, Withdrawal
-        can :manage, AddAndDrop
-        can :manage, OtherPayment
-        can :manage, StudentGrade
+        # can :manage, Department
+        # can :manage, CourseModule
+        # can :manage, Course
+        # can :manage, Student
+        # can :manage, PaymentMethod
+        # can :manage, AcademicCalendar
+        # can :manage, CollegePayment
+        # can :manage, SemesterRegistration
+        # can :manage, Invoice
+        # can :manage, Section
+        # can :manage, Almuni
+        # can :manage, Withdrawal
+        # can :manage, AddAndDrop
+        # can :manage, OtherPayment
+        # can :manage, StudentGrade
     when "instructor"
         can :manage, ActiveAdmin::Page, name: "Dashboard", namespace_name: "admin"
         can :read, AcademicCalendar

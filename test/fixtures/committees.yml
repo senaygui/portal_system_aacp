@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  committee_title: MyString
+  committee_job_description: MyText
+  committee_started_at: 2024-10-23 17:45:51
+  committee_leader: one
+  created_by: MyString
+  last_updated_by: MyString
+
+two:
+  committee_title: MyString
+  committee_job_description: MyText
+  committee_started_at: 2024-10-23 17:45:51
+  committee_leader: two
+  created_by: MyString
+  last_updated_by: MyString

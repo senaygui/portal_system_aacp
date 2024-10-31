@@ -1,5 +1,5 @@
 ActiveAdmin.register Department do
-  menu parent: "Department"
+  
 
   permit_params :department_name,:background,:overview,:location,:phone_number,:email,:facebook_handle,:telegram_handle,:twitter_handle,:instagram_handle,:created_by,:last_updated_by, :alternative_phone_number, :faculty_id
   active_admin_import

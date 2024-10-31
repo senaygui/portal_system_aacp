@@ -5,7 +5,8 @@ class AdminUser < ApplicationRecord
          :recoverable, :rememberable, :validatable, :trackable
   has_person_name
   has_one_attached :photo, dependent: :destroy
-
+  belongs_to :cell, optional: true
+  has_many :committees
   ##validations
     # validates :username , :presence => true,:length => { :within => 2..50 }
     validates :first_name , :presence => true,:length => { :within => 2..50 }
