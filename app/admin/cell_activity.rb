@@ -1,4 +1,4 @@
-ActiveAdmin.register CellActivity do
+ActiveAdmin.register CellActivity, as: "FamilyActivity" do
 
  permit_params :title,:overview,:cell_id,:category, :created_by,:last_updated_by, agendas_attributes: [:id,:cell_activity_id,:agenda_title,:agenda_description,:created_by,:last_updated_by, :_destroy],reports: [], galleries: []
 
@@ -6,7 +6,7 @@ ActiveAdmin.register CellActivity do
   selectable_column
   column :title
   column :category
-  column "cell name", sortable: true do |d|
+  column "family name", sortable: true do |d|
     link_to d.cell.cell_name, [:admin, d.cell]
   end
   column :created_at, sortable: true do |c|
@@ -36,12 +36,12 @@ end
 
   form do |f|
     f.semantic_errors
-      f.inputs "Cell Activity Information" do
+      f.inputs "Family Activity Information" do
         f.input :title
         f.input :category
-        f.input :cell_id, as: :search_select, url: admin_cells_path,
+        f.input :cell_id, as: :search_select, url: admin_families_path,
         fields: [:cell_name, :id], display_name: 'cell_name', minimum_input_length: 2,
-        order_by: 'id_asc'
+        order_by: 'id_asc', label: "Family Name"
         f.input :overview
         if f.object.new_record?
           f.input :created_by, as: :hidden, :input_html => { :value => current_admin_user.name.full}
@@ -81,7 +81,7 @@ end
 
   show title: :title do
     tabs do
-      tab "Cell Activity Information" do
+      tab "Family Activity Information" do
         columns do
           column do
             panel "Cell Activity Information" do

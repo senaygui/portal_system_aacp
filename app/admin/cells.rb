@@ -1,4 +1,4 @@
-ActiveAdmin.register Cell do
+ActiveAdmin.register Cell, as: "family" do
   permit_params :cell_name
   index do
     selectable_column
@@ -15,12 +15,12 @@ ActiveAdmin.register Cell do
   filter :created_at
   filter :updated_at
 
-  form title: "ህዋስ መረጃ" do |f|
+  form title: "Family Information" do |f|
     f.semantic_errors
-    f.inputs "ህዋስ መረጃ" do
-      f.input :cell_name, :label => "ህዋስ"    
-      f.input :cell_decription, :label => "ህዋስ መግለጫ"    
-      f.input :create_date,:label => "ህዋስ የተመሰረተበት ቀን", as: :date_time_picker     
+    f.inputs "Family Information" do
+      f.input :cell_name, label: "Family Name"
+      f.input :cell_decription, label: "Family Description"
+      f.input :create_date, as: :date_time_picker     
     end
     if f.object.new_record?
       f.input :created_by, as: :hidden, :input_html => { :value => current_admin_user.name.full}
@@ -31,7 +31,7 @@ ActiveAdmin.register Cell do
   end
 
   show title: :cell_name do
-    panel "Cell  information" do
+    panel "Family  information" do
       attributes_table_for cell do
         row :cell_name
         row :created_at

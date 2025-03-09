@@ -15,6 +15,8 @@ class Ability
         can :manage, Cell
         can :manage, Committee
         can :manage, CellActivity
+        can :manage, Attendance
+        can :manage, FinancialReport
         # can :manage, ActiveAdmin::Page, name: "Calendar", namespace_name: "admin"
         # can :manage, Transfer
         # can :manage, RecurringPayment
@@ -61,8 +63,10 @@ class Ability
         # can :manage, AddAndDrop
         # can :manage, OtherPayment
         # can :manage, StudentGrade
-    when "instructor"
-        can :manage, ActiveAdmin::Page, name: "Dashboard", namespace_name: "admin"
+    when "አባል"
+        # can :read, Cell, id: Cell.admin_users(user.id)
+        can :manage, ActiveAdmin::Page, name: "Dashboard", namespace_name: "admin" 
+    when "finance"
         can :read, AcademicCalendar
         can :read, Course, id: Course.instructor_courses(user.id)
         can :update, Course, id: Course.instructor_courses(user.id)
@@ -81,7 +85,6 @@ class Ability
 
         can :read, GradeChange, course_id: Section.instructors(user.id)
         can :update, GradeChange , course_id: Section.instructors(user.id)
-    when "finance"
         can :manage, ActiveAdmin::Page, name: "Dashboard", namespace_name: "admin"
         can :read, Program
         #TODO: after one college created disable new action   

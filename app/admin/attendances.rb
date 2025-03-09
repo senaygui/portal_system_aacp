@@ -1,43 +1,34 @@
 ActiveAdmin.register Attendance do
-menu parent: "Attendance"
-  permit_params :program_id,:section_id,:academic_calendar_id,:course_title,:attendance_title,:year,:semester,:created_by,:updated_by,:course_id,sessions_attributes: [:id,:attendance_id,:starting_date,:ending_date,:academic_calendar_id,:semester,:year,:session_title,:created_by,:updated_by, :_destroy]
+
+  permit_params :cell_actviity_id,:from,:to,:created_by,:updated_by,sessions_attributes: [:id,:attendance_id,:starting_date,:ending_date,:session_title,:created_by,:updated_by, :_destroy]
 
   index do
     selectable_column
     
     column :attendance_title
-    column :course_title
-    column "Program" do |pd|
-      pd.program.program_name
+    column "From", sortable: true do |c|
+      c.from.strftime("%b %d, %Y")
     end
-    column "academic year", sortable: true do |n|
-      link_to n.academic_calendar.calender_year, admin_academic_calendar_path(n.academic_calendar)
+    column "To", sortable: true do |c|
+      c.to.strftime("%b %d, %Y")
     end
-    column :year
-    column :semester
-    column "Created At", sortable: true do |c|
-      c.created_at.strftime("%b %d, %Y")
+    column "To", sortable: true do |c|
+      c.sessions.count
     end
     actions
   end 
 
   form do |f|
     f.semantic_errors
-    if !(params[:page_name] == "add") && !(current_admin_user.role == "instructor")
+    if !(params[:page_name] == "add") && (current_admin_user.role == "admin")
       f.inputs "Attendance information" do
         f.input :attendance_title
         
-        f.input :course_id, as: :search_select, url: admin_courses_path,
-              fields: [:course_title, :id], display_name: 'course_title', minimum_input_length: 2,lebel: "course title",
+        f.input :cell_actviity_id, as: :search_select, url: admin_cell_cell_activities_path,
+              fields: [:title, :id], display_name: 'title', minimum_input_length: 2,lebel: "title",
               order_by: 'id_asc'
-        f.input :section_id, as: :search_select, url: admin_program_sections_path,
-              fields: [:section_full_name, :id], display_name: 'section_full_name', minimum_input_length: 2,
-              order_by: 'id_asc'
-        f.input :academic_calendar_id, as: :search_select, url: admin_academic_calendars_path,
-              fields: [:calender_year, :id], display_name: 'calender_year', minimum_input_length: 2,
-              order_by: 'id_asc'
-        f.input :year
-        f.input :semester
+        f.input :from, as: :date_time_picker
+        f.input :to, as: :date_time_picker
         f.input :created_at, as: :date_time_picker
         if f.object.new_record?
           f.input :created_by, as: :hidden, :input_html => { :value => current_admin_user.name.full}
@@ -83,18 +74,11 @@ menu parent: "Attendance"
             panel "Attendance information" do
               attributes_table_for attendance do
                 row :attendance_title
-                row :program do |pr|
-                  pr.program.program_name
+                row :cell_activity do |pr|
+                  pr.cell_activity.title
                 end
-                row :course_title
-                row :section do |pr|
-                  pr.section.section_short_name
-                end
-                row :academic_calendar do |pr|
-                  pr.academic_calendar.calender_year
-                end
-                row :year
-                row :semester
+                row :from
+                row :to
                 row :created_by
                 row :updated_by
                 row :created_at
@@ -117,25 +101,23 @@ menu parent: "Attendance"
           end 
         end
       end
-      tab "Student List" do
-        panel "Student List" do
-          table_for attendance.section.course_registrations.where(academic_calendar_id: attendance.academic_calendar, course_id: attendance.course ) do
+      tab "users List" do
+        panel "user List" do
+          table_for CellMebmber.where(cell_id: attendance.cell_activity.cell) do
+          
             column :student_full_name
-            column "STUDENT ID" do |s|
-              s.student.student_id
-            end
-            column :section do |sec|
-              sec.section.section_short_name
+            column "Cell Mebmber" do |s|
+              s.admin_user.name.full 
             end
             column :total_session do |section|
               attendance.sessions.count
             end
             column :total_present_days do |section|
-              attendance.sessions.map {|session| session.student_attendances.where(student_id: section.student, present: true).count}.sum
+              attendance.sessions.map {|session| session.student_attendances.where(admin_user_id: section.admin_user, present: true).count}.sum
               # section.student.student_attendances.where(present: true).count
             end
             column :total_absent_days do |section|
-              attendance.sessions.map {|session| session.student_attendances.where(student_id: section.student, absent: true).count}.sum
+              attendance.sessions.map {|session| session.student_attendances.where(admin_user_id: section.admin_user, absent: true).count}.sum
             end
             # column :avg_present_days do |section|
             #   span ((attendance.sessions.map {|session| session.student_attendances.where(student_id: section.student, present: true).count}.sum).to_i / attendance.sessions.count.to_i)

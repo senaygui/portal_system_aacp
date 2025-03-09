@@ -13,13 +13,13 @@ ActiveAdmin.register AdminUser do
   index do
     selectable_column
     
-    column "ስም", sortable: true do |n|
+    column "full name", sortable: true do |n|
       n.name.full 
     end
-    column "ኢሜል", :email
-    column "ሚና", :role
-    column "አሁን የገቡበት",:current_sign_in_at
-    column "የገቡበት በቁጥር", :sign_in_count
+    column :email
+    column :role
+    column :current_sign_in_at
+    column :sign_in_count
     column :created_at
     actions
   end
@@ -51,37 +51,38 @@ ActiveAdmin.register AdminUser do
 
   form title: "User Account" do |f|
     f.inputs "User Account" do
-      f.input :first_name, label: "ስም"
-      f.input :last_name, label: "አባት ስም"
-      f.input :middle_name, label: "አያት ስም"
-      f.input :username, label: "የተጠቃሚ ስም"
-      f.input :email, label: "ኢሜል"
+      f.input :first_name
+      f.input :last_name
+      f.input :middle_name
+      f.input :username
+      f.input :email
       if !f.object.new_record?
         f.input :current_password
       end
-      f.input :password, label: "የይለፍ ቃል "
-      f.input :password_confirmation, label: "የይለፍ ቃል ማረጋገጫ"
+      f.input :password
+      f.input :password_confirmation
       
-      f.input :role, label: "ሚና",  :as => :select, :collection => [["Admin","admin"],["መሰረታዊ ፓርቲ","መሰረታዊ ፓርቲ"],["ፋይናንስ ዘርፍ","ፋይናንስ ዘርፍ"],["አደረጃጀት","አደረጃጀት"], ["ፖለቲካ ዘርፍ","ፖለቲካ ዘርፍ"], ["ሰብሳቢ","ሰብሳቢ"]]
-      f.input :cell_id,label: "የህዋስ ስም", as: :search_select, url: admin_cells_path,
+      f.input :role,  :as => :select, :collection => [["Admin","admin"],["Cell Member","member"],["Finance Officer","finance_officer"],["cell Administrator","cell_administrator"], ["Cell Politics Administrator","cell_politics_administrator"], ["Cell Leader","cell_leader"]]
+      f.input :cell_id, as: :search_select, url: admin_cells_path,
           fields: [:cell_name, :id], display_name: 'cell_name', minimum_input_length: 2,
           order_by: 'id_asc'
-      f.input :photo, as: :file, label: "ፎቶ"
+      f.input :photo, as: :file
     end
     f.actions
   end
 
   show :title => proc{|admin_user| admin_user.name.full }  do
-    panel "Instructor Information" do
+    panel "User Information" do
       attributes_table_for admin_user do
         row "photo" do |pt|
           span image_tag(pt.photo, size: '150x150', class: "img-corner") if pt.photo.attached?
         end
-        row "ስም", :first_name
-        row "አባት ስም", :last_name
-        row "አያት ስም", :middle_name
-        row "የተጠቃሚ ስም", :username
-        row "ኢሜል", :email
+        row :first_name
+        row :last_name
+        row :middle_name
+        row :username
+        row :role
+        row :email
         row :sign_in_count
         row :current_sign_in_at
         row :last_sign_in_at

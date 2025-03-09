@@ -7,6 +7,9 @@ class AdminUser < ApplicationRecord
   has_one_attached :photo, dependent: :destroy
   belongs_to :cell, optional: true
   has_many :committees
+  has_many :student_attendances
+  has_many :financial_reports, dependent: :destroy
+  has_many :paid_members, dependent: :destroy
   ##validations
     # validates :username , :presence => true,:length => { :within => 2..50 }
     validates :first_name , :presence => true,:length => { :within => 2..50 }
@@ -31,4 +34,15 @@ class AdminUser < ApplicationRecord
     ## associations
       has_many :course_instructors
       belongs_to :department, optional: true
+
+
+      before_save :ensure_utf8_encoding
+
+  private
+
+  def ensure_utf8_encoding
+    attributes.each do |key, value|
+      self[key] = value.encode("UTF-8", invalid: :replace, undef: :replace, replace: "") if value.is_a?(String)
+    end
+  end
 end

@@ -1,4 +1,4 @@
-ActiveAdmin.register AdminUser, as: "CellMebmber"  do
+ActiveAdmin.register AdminUser, as: "FamilyMebmber"  do
   if proc {current_admin_user.role == "admin"}
   menu :if => false
 end
@@ -37,15 +37,15 @@ scope :recently_added
 scope :total_users
 scope :admins
 
-scope "ፋይናንስ ዘርፍ",:president
-scope "አደረጃጀት",:vice_presidents
-scope "presidentd name",:quality_assurances
-scope "presidentd name",:deans
-scope "presidentc name",:department_heads
-scope "presidentca name",:program_offices
-scope "presidentcs name",:library
-scope "presidentcd name",:registrars
-scope "presidentx name",:finances
+# scope "ፋይናንስ ዘርፍ",:president
+# scope "አደረጃጀት",:vice_presidents
+# scope "presidentd name",:quality_assurances
+# scope "presidentd name",:deans
+# scope "presidentc name",:department_heads
+# scope "presidentca name",:program_offices
+# scope "presidentcs name",:library
+# scope "presidentcd name",:registrars
+# scope "presidentx name",:finances
 
 
 

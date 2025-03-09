@@ -1,14 +1,10 @@
 class CreateAttendances < ActiveRecord::Migration[5.2]
   def change
     create_table :attendances, id: :uuid do |t|
-      t.belongs_to :program, index: true, type: :uuid
-      t.belongs_to :section, index: true, type: :uuid
-      t.belongs_to :course, index: true, type: :uuid
-      t.belongs_to :academic_calendar, index: true, type: :uuid
-      t.string :course_title
+      t.belongs_to :cell_activity, index: true, type: :uuid
       t.string :attendance_title
-      t.integer :year
-      t.integer :semester
+      t.datetime :from
+      t.datetime :to
       t.string :created_by
       t.string :updated_by
 

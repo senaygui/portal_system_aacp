@@ -3,8 +3,7 @@ class Session < ApplicationRecord
   before_save :attribute_assignment
 	
   belongs_to :attendance
-  belongs_to :course, optional: true
-  belongs_to :academic_calendar, optional: true
+
 
   # belongs_to :academic_calendar
   has_many :student_attendances

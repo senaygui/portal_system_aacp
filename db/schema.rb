@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_10_23_155429) do
+ActiveRecord::Schema.define(version: 2025_02_02_130423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -220,22 +220,15 @@ ActiveRecord::Schema.define(version: 2024_10_23_155429) do
   end
 
   create_table "attendances", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "program_id"
-    t.uuid "section_id"
-    t.uuid "course_id"
-    t.uuid "academic_calendar_id"
-    t.string "course_title"
+    t.uuid "cell_activity_id"
     t.string "attendance_title"
-    t.integer "year"
-    t.integer "semester"
+    t.datetime "from"
+    t.datetime "to"
     t.string "created_by"
     t.string "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["academic_calendar_id"], name: "index_attendances_on_academic_calendar_id"
-    t.index ["course_id"], name: "index_attendances_on_course_id"
-    t.index ["program_id"], name: "index_attendances_on_program_id"
-    t.index ["section_id"], name: "index_attendances_on_section_id"
+    t.index ["cell_activity_id"], name: "index_attendances_on_cell_activity_id"
   end
 
   create_table "cell_activities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -535,6 +528,21 @@ ActiveRecord::Schema.define(version: 2024_10_23_155429) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "financial_reports", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "admin_user_id"
+    t.uuid "cell_id"
+    t.decimal "current_balance", null: false
+    t.decimal "previous_balance", null: false
+    t.integer "total_members", null: false
+    t.datetime "financial_report_date", null: false
+    t.string "created_by", null: false
+    t.string "last_updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_user_id"], name: "index_financial_reports_on_admin_user_id"
+    t.index ["cell_id"], name: "index_financial_reports_on_cell_id"
+  end
+
   create_table "grade_changes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "academic_calendar_id"
     t.uuid "program_id"
@@ -777,6 +785,21 @@ ActiveRecord::Schema.define(version: 2024_10_23_155429) do
     t.index ["student_id"], name: "index_other_payments_on_student_id"
   end
 
+  create_table "paid_members", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "admin_user_id"
+    t.uuid "cell_id"
+    t.uuid "financial_report_id"
+    t.decimal "paid_amount", null: false
+    t.decimal "fee_precentage", null: false
+    t.string "created_by"
+    t.string "last_updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_user_id"], name: "index_paid_members_on_admin_user_id"
+    t.index ["cell_id"], name: "index_paid_members_on_cell_id"
+    t.index ["financial_report_id"], name: "index_paid_members_on_financial_report_id"
+  end
+
   create_table "payment_methods", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "bank_name", null: false
     t.string "account_full_name", null: false
@@ -981,10 +1004,6 @@ ActiveRecord::Schema.define(version: 2024_10_23_155429) do
 
   create_table "sessions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "attendance_id"
-    t.uuid "academic_calendar_id"
-    t.uuid "course_id"
-    t.integer "semester"
-    t.integer "year"
     t.datetime "starting_date"
     t.datetime "ending_date"
     t.string "session_title"
@@ -992,9 +1011,7 @@ ActiveRecord::Schema.define(version: 2024_10_23_155429) do
     t.string "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["academic_calendar_id"], name: "index_sessions_on_academic_calendar_id"
     t.index ["attendance_id"], name: "index_sessions_on_attendance_id"
-    t.index ["course_id"], name: "index_sessions_on_course_id"
   end
 
   create_table "student_addresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -1019,8 +1036,7 @@ ActiveRecord::Schema.define(version: 2024_10_23_155429) do
 
   create_table "student_attendances", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "session_id"
-    t.uuid "student_id"
-    t.uuid "course_registration_id"
+    t.uuid "admin_user_id"
     t.string "student_full_name"
     t.boolean "present"
     t.boolean "absent"
@@ -1029,9 +1045,8 @@ ActiveRecord::Schema.define(version: 2024_10_23_155429) do
     t.string "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["course_registration_id"], name: "index_student_attendances_on_course_registration_id"
+    t.index ["admin_user_id"], name: "index_student_attendances_on_admin_user_id"
     t.index ["session_id"], name: "index_student_attendances_on_session_id"
-    t.index ["student_id"], name: "index_student_attendances_on_student_id"
   end
 
   create_table "student_courses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -1220,4 +1235,9 @@ ActiveRecord::Schema.define(version: 2024_10_23_155429) do
   add_foreign_key "committee_members", "committees"
   add_foreign_key "committees", "admin_users"
   add_foreign_key "departments", "faculties"
+  add_foreign_key "financial_reports", "admin_users"
+  add_foreign_key "financial_reports", "cells"
+  add_foreign_key "paid_members", "admin_users"
+  add_foreign_key "paid_members", "cells"
+  add_foreign_key "paid_members", "financial_reports"
 end
