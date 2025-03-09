@@ -71,7 +71,7 @@ form title: "User Account" do |f|
     f.input :photo, as: :file
     f.input :gender
     f.input :age
-    f.input :date_of_birth
+    f.input :date_of_birth, as: :date_time_picker
     f.input :ethnic_group
     f.input :education_level
     f.input :field_of_ftudy
@@ -86,7 +86,7 @@ form title: "User Account" do |f|
     f.input :basic_organization
     f.input :membership_monthly_fee_cash
     f.input :membership_start_year, as: :date_time_picker
-    f.input :family_name
+    # f.input :family_name
   end
   f.actions
 end
