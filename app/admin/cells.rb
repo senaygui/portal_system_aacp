@@ -1,5 +1,6 @@
 ActiveAdmin.register Cell, as: "family" do
   permit_params :cell_name
+  active_admin_import
   index do
     selectable_column
     column :cell_name

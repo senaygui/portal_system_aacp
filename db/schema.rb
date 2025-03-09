@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_02_02_130423) do
+ActiveRecord::Schema.define(version: 2025_03_09_150234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -160,6 +160,24 @@ ActiveRecord::Schema.define(version: 2025_02_02_130423) do
     t.uuid "department_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "gender"
+    t.string "age"
+    t.datetime "date_of_birth"
+    t.string "ethnic_group"
+    t.string "education_level"
+    t.string "field_of_ftudy"
+    t.string "subcity"
+    t.string "woreda"
+    t.string "phone_number"
+    t.string "source_of_livelihood"
+    t.string "work_place"
+    t.string "position"
+    t.string "birth_place_region"
+    t.datetime "supporter_start_year"
+    t.string "basic_organization"
+    t.decimal "membership_monthly_fee_cash"
+    t.datetime "membership_start_year"
+    t.string "family_name"
     t.index ["cell_id"], name: "index_admin_users_on_cell_id"
     t.index ["department_id"], name: "index_admin_users_on_department_id"
     t.index ["email"], name: "index_admin_users_on_email", unique: true

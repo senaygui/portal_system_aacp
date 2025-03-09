@@ -2,6 +2,7 @@ ActiveAdmin.register AdminUser do
   if proc {current_admin_user.role == "admin"}
     menu :if => false
   end
+  active_admin_import
   menu priority: 2
   permit_params :photo,:email, :password, :password_confirmation,:first_name,:last_name,:middle_name,:role,:username
   controller do
@@ -62,10 +63,10 @@ ActiveAdmin.register AdminUser do
       f.input :password
       f.input :password_confirmation
       
-      f.input :role,  :as => :select, :collection => [["Admin","admin"],["Cell Member","member"],["Finance Officer","finance_officer"],["cell Administrator","cell_administrator"], ["Cell Politics Administrator","cell_politics_administrator"], ["Cell Leader","cell_leader"]]
+      f.input :role,  :as => :select, :collection => [["Admin","admin"],["Family Member","member"],["Finance Officer","finance_officer"],["Family Administrator","cell_administrator"], ["Family Politics Administrator","cell_politics_administrator"], ["Family Leader","cell_leader"]]
       f.input :cell_id, as: :search_select, url: admin_families_path,
           fields: [:cell_name, :id], display_name: 'cell_name', minimum_input_length: 2,
-          order_by: 'id_asc'
+          order_by: 'id_asc', label: "family"
       f.input :photo, as: :file
     end
     f.actions

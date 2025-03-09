@@ -85,12 +85,12 @@ end
         columns do
           column do
             panel "Cell Activity Information" do
-              attributes_table_for cell_activity do
+              attributes_table_for family_activity do
                 row :title
                 row :overview
                 row :category
                 row "Cell Name" do |pr|
-                  link_to pr.cell.cell_name, admin_cell_path(pr.cell)
+                  link_to pr.cell.cell_name, admin_family_path(pr.cell)
                 end
                 row :created_by
                 row :last_updated_by
@@ -101,7 +101,7 @@ end
           end
           column do
             panel "Agendas" do
-              table_for cell_activity.agendas.all do
+              table_for family_activity.agendas.all do
                 column :agenda_title
                 column :agenda_description
                 column :created_by
@@ -115,7 +115,7 @@ end
         columns do
           column do
             panel "Galleries" do
-              attributes_table_for cell_activity do
+              attributes_table_for family_activity do
                 row "Documents" do |i|
                   div class: "document-preview container" do
                     i.galleries.each do |doc| 
@@ -129,7 +129,7 @@ end
                           span link_to "view document", Rails.application.routes.url_helpers.rails_blob_path(doc, disposition: "attachment", only_path: true)
                         end
                       else
-                        span link_to "view document", doc.service_url
+                        # span link_to "view document", doc.service_url
                       end
                     end
                   end
@@ -140,7 +140,7 @@ end
           column do
             panel "Report" do
               div class: "parent" do
-                cell_activity.reports.each do |doc| 
+                family_activity.reports.each do |doc| 
                   div class: "div1" do
                     figure do
                     span image_tag("file.jpg", width: "90")
