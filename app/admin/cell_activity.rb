@@ -7,7 +7,7 @@ ActiveAdmin.register CellActivity, as: "FamilyActivity" do
   column :title
   column :category
   column "family name", sortable: true do |d|
-    link_to d.cell.cell_name, [:admin, d.cell]
+     d.cell.cell_name
   end
   column :created_at, sortable: true do |c|
     c.created_at.strftime("%b %d, %Y")
