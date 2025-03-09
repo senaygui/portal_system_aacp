@@ -63,9 +63,9 @@ form title: "User Account" do |f|
     f.input :password_confirmation
     
     f.input :role,  :as => :select, :collection => [["ፋይናንስ ዘርፍ","ፋይናንስ ዘርፍ"],["አደረጃጀት","አደረጃጀት"], ["ፖለቲካ ዘርፍ","ፖለቲካ ዘርፍ"], ["ሰብሳቢ","ሰብሳቢ"], ["አባል","አባል"]]
-    f.input :cell_id, as: :search_select, url: admin_cells_path,
+    f.input :cell_id, as: :search_select, url: admin_families_path,
         fields: [:cell_name, :id], display_name: 'cell_name', minimum_input_length: 2,
-        order_by: 'id_asc'
+        order_by: 'id_asc', label: "family"
     f.input :photo, as: :file
   end
   f.actions
@@ -73,7 +73,7 @@ end
 
 show :title => proc{|admin_user| admin_user.name.full }  do
   panel "Instructor Information" do
-    attributes_table_for admin_user do
+    attributes_table_for family_mebmber do
       row "photo" do |pt|
         span image_tag(pt.photo, size: '150x150', class: "img-corner") if pt.photo.attached?
       end

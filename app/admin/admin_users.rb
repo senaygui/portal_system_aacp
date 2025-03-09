@@ -63,7 +63,7 @@ ActiveAdmin.register AdminUser do
       f.input :password_confirmation
       
       f.input :role,  :as => :select, :collection => [["Admin","admin"],["Cell Member","member"],["Finance Officer","finance_officer"],["cell Administrator","cell_administrator"], ["Cell Politics Administrator","cell_politics_administrator"], ["Cell Leader","cell_leader"]]
-      f.input :cell_id, as: :search_select, url: admin_cells_path,
+      f.input :cell_id, as: :search_select, url: admin_families_path,
           fields: [:cell_name, :id], display_name: 'cell_name', minimum_input_length: 2,
           order_by: 'id_asc'
       f.input :photo, as: :file
